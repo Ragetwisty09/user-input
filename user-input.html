@@ -1,0 +1,133 @@
+<!-- 
+    Author: [Your Name]
+    Description: A webpage that asks for the user's first name, last name, and zip code.
+    If the input is valid, it will display a secret message.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Message Form</title>
+
+    <!-- CSS styles for a nice user experience -->
+    <style>
+        body {
+            background-color: #f4f4f9; /* Light gray background */
+            font-family: Arial, sans-serif; /* Clean font for readability */
+            color: #333; /* Dark text for contrast */
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50; /* Green header for a fresh look */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #secretMessage {
+            display: none;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: red;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enter Your Details</h1>
+
+    <div class="container">
+        <!-- Form asking for user's first name, last name, and zip code -->
+        <form id="userForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name">
+
+            <label for="zipCode">Zip Code:</label>
+            <input type="text" id="zipCode" name="zipCode" required placeholder="Enter your zip code">
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <!-- Secret message section -->
+        <div id="secretMessage">You have access to the secret message! Congratulations!</div>
+        <div id="warningMessage" class="warning"></div> <!-- For displaying warnings -->
+    </div>
+
+    <script>
+        // Event listener for form submission
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the form from submitting
+
+            // Get the values from the input fields
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var zipCode = document.getElementById('zipCode').value;
+
+            // Combine the first name and last name into a single string
+            var fullName = firstName + " " + lastName;
+
+            // Check if the full name exceeds 20 characters
+            if (fullName.length > 20) {
+                document.getElementById('warningMessage').textContent = "Name is too long! Please enter a shorter name.";
+                document.getElementById('secretMessage').style.display = 'none'; // Hide the secret message
+                return;  // Stop the function if the name is too long
+            } else {
+                document.getElementById('warningMessage').textContent = ""; // Clear the warning
+            }
+
+            // Check if the zip code is exactly 5 digits
+            if (!/^\d{5}$/.test(zipCode)) {
+                document.getElementById('warningMessage').textContent = "Invalid Zip Code! Please enter a valid 5-digit zip code.";
+                document.getElementById('secretMessage').style.display = 'none'; // Hide the secret message
+                return;  // Stop the function if zip code is invalid
+            } else {
+                document.getElementById('warningMessage').textContent = ""; // Clear the warning
+            }
+
+            // If all inputs are valid, display the secret message
+            document.getElementById('secretMessage').style.display = 'block';
+        });
+    </script>
+
+</body>
+<a href="hub.html" class="home-btn">Back to Hub</a> <!-- Link back to landing page -->
+</html>
